@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<title>Agenda The Beauty Space</title>
+<meta name="description" content="Agenda pessoal, profissional, Laser Day e Clínica — The Beauty Space.">
+<link rel="manifest" id="mf"><meta name="theme-color" content="#B5607E">
+<link rel="icon" id="fav" type="image/svg+xml"><link rel="apple-touch-icon" id="ati">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Agenda TBS">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FBF6F5;--bg-card:#FFFFFF;--ink:#2E2024;--ink-soft:#6E5A5E;--ink-faint:#85707A;--line:#F0E3E2;--line-strong:#E3CFD0;
+--prof:#B5607E;--prof-ink:#8A4260;--prof-soft:#F8E8ED;--prof-line:#EBC9D4;
+--pess:#6F8F6B;--pess-ink:#4D6B49;--pess-soft:#EAF1E7;--pess-line:#CFDFC9;
+--gold:#B58A55;--gold-ink:#8A6636;--gold-soft:#F7ECDD;--gold-line:#E8D3B3;
+--rotina:#5E7B5F;--rotina-soft:#E7EFE4;--atencao:#AD8A22;--atencao-soft:#F7EFD4;--importante:#BE6F27;--importante-soft:#F7E4CE;--urgente:#B0453F;--urgente-soft:#F5DEDB;--fatal:#7A2430;--fatal-soft:#F0D9DC;
+--vprof:#6F8BA3;--vprof-soft:#E8EEF3;--vprof-line:#C9D6E1;--vprof-ink:#47627B;--clin:#8E78A8;--clin-soft:#EFEAF4;--clin-line:#D8CCE4;--clin-ink:#66527F;
+--shadow-s:0 1px 2px rgba(60,30,40,.05),0 2px 8px rgba(60,30,40,.05);--shadow-m:0 4px 10px rgba(60,30,40,.08),0 10px 24px rgba(60,30,40,.08);--r-s:10px;--r-m:16px;--r-l:24px;
+--font-display:'Fraunces',Georgia,serif;--font-body:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color-scheme:light;}
+.eventitem.vida-laser{border-left-color:var(--prof)}.eventitem.vida-clinica{border-left-color:var(--clin)}.eventitem.vida-profissional{border-left-color:var(--vprof)}
+.dot.vida-laser{background:var(--prof)}.dot.vida-clinica{background:var(--clin)}.dot.vida-profissional{background:var(--vprof)}
+.filterchip.on.f-laser{background:var(--prof-soft);border-color:var(--prof-line);color:var(--prof-ink)}
+.filterchip.on.f-clinica{background:var(--clin-soft);border-color:var(--clin-line);color:var(--clin-ink)}
+.filterchip.on.f-profissional{background:var(--vprof-soft);border-color:var(--vprof-line);color:var(--vprof-ink)}
+.filters{flex-wrap:wrap}
+.segmented button.on{background:var(--prof);color:#fff}
+.daycell.laser-on{background:var(--prof-soft);border-color:var(--prof-line)}
+.daycell.selected,.daycell.selected.laser-on,.daycell.selected.feriado{background:var(--prof);border-color:var(--prof)}
+.grp{font-size:12px;text-transform:uppercase;letter-spacing:.5px;font-weight:700;margin:14px 0 8px;display:flex;align-items:center;gap:7px;color:var(--ink-soft)}
+.btnrow{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.btn.wa{background:#25D366;color:#fff}.btn.wa svg{width:17px;height:17px}
+.btn.on{background:var(--rotina-soft);border-color:var(--rotina);color:var(--rotina)}
+.menu-row{display:flex;align-items:center;justify-content:space-between;width:100%;padding:15px 4px;background:none;border:0;border-bottom:1px solid var(--line);font-size:15px;font-weight:600;color:var(--ink);text-align:left}
+.menu-row small{display:block;font-size:12.5px;font-weight:400;color:var(--ink-soft)}
+.menu-row svg{width:18px;height:18px;color:var(--ink-faint)}
+.back{background:none;border:0;color:var(--prof);font-weight:600;font-size:14px;padding:0 0 10px;display:flex;align-items:center;gap:4px}
+.pre{white-space:pre-wrap;font-size:13.5px;background:var(--prof-soft);border-radius:var(--r-s);padding:10px 12px;margin:8px 0}
+.logo-clin{display:flex;justify-content:center;margin-bottom:6px}.logo-clin svg{width:86px;height:86px}
+.svc-row{display:grid;grid-template-columns:1fr 92px 34px;gap:8px;margin-bottom:8px;align-items:center}
+.ev-meta .chip{padding:2px 8px}
+.card h3{font-size:16px;margin-bottom:6px}
+*{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
+html,body{margin:0; padding:0;}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:15px;
+  line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+  padding-bottom: calc(78px + env(safe-area-inset-bottom));
+}
+h1,h2,h3,h4{font-family:var(--font-display); font-weight:600; margin:0; color:var(--ink);}
+p{margin:0;}
+button{font-family:inherit; cursor:pointer;}
+input,select,textarea{font-family:inherit; font-size:15px;}
+a{color:inherit;}
+::selection{background:var(--gold-soft);}
+
+.container{max-width:560px; margin:0 auto; padding:0 16px;}
+
+/* ---------- topbar ---------- */
+.topbar{
+  position:sticky; top:0; z-index:20;
+  background:rgba(251,246,245,.92);
+  backdrop-filter:saturate(140%) blur(8px);
+  border-bottom:1px solid var(--line);
+  padding-top: env(safe-area-inset-top);
+}
+.topbar-inner{
+  max-width:560px; margin:0 auto; padding:14px 16px 12px;
+  display:flex; align-items:center; gap:12px;
+}
+.brand-mark{width:34px; height:34px; border-radius:9px; flex-shrink:0;}
+.brand-text{display:flex; flex-direction:column; line-height:1.1;}
+.brand-text .wordmark{font-family:var(--font-display); font-weight:600; font-size:19px; letter-spacing:.2px;}
+.brand-text .tagline{font-size:11.5px; color:var(--ink-soft); margin-top:1px;}
+.topbar-date{margin-left:auto; text-align:right; font-size:12px; color:var(--ink-soft); text-transform:capitalize;}
+
+/* ---------- bottom nav ---------- */
+.bottomnav{
+  position:fixed; left:0; right:0; bottom:0; z-index:30;
+  background:rgba(255,255,255,.96);
+  backdrop-filter:saturate(140%) blur(10px);
+  border-top:1px solid var(--line);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.bottomnav-inner{
+  max-width:560px; margin:0 auto;
+  display:grid; grid-template-columns:repeat(6,1fr);
+}
+.navbtn{
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:3px; padding:9px 2px 8px; background:none; border:none; color:var(--ink-faint);
+}
+.navbtn svg{width:21px; height:21px;}
+.navbtn span{font-size:10px; font-weight:500; letter-spacing:.1px;}
+.navbtn.active{color:var(--prof);}
+.navbtn.active svg{filter:none;}
+
+/* ---------- views ---------- */
+.view{display:none; padding:16px 0 28px;}
+.view.active{display:block;}
+
+.card{
+  background:var(--bg-card);
+  border:1px solid var(--line);
+  border-radius:var(--r-m);
+  padding:16px;
+  box-shadow:var(--shadow-s);
+  margin-bottom:14px;
+}
+.card + .card{margin-top:0;}
+.section-title{font-size:13px; text-transform:uppercase; letter-spacing:.6px; color:var(--ink-soft); font-weight:600; margin:22px 0 10px; font-family:var(--font-body);}
+.section-title:first-child{margin-top:0;}
+
+/* ---------- banners ---------- */
+.banner{
+  border-radius:var(--r-m); padding:14px 16px; margin-bottom:14px;
+  display:flex; gap:12px; align-items:flex-start;
+  border:1px solid var(--gold-line); background:var(--gold-soft);
+}
+.banner.recess{border-color:var(--prof-line); background:var(--prof-soft);}
+.banner strong{display:block; margin-bottom:2px;}
+.banner p{font-size:13.5px; color:var(--ink-soft);}
+.banner .icon{width:20px; height:20px; flex-shrink:0; margin-top:1px; color:var(--gold-ink);}
+.banner.recess .icon{color:var(--prof);}
+.banner-actions{margin-top:8px; display:flex; gap:10px;}
+.banner-dismiss{margin-left:auto; background:none; border:none; color:var(--ink-faint); padding:2px;}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:6px;
+  border-radius:999px; padding:10px 18px; font-size:14px; font-weight:600;
+  border:1px solid transparent; background:var(--prof); color:#fff;
+  transition:transform .12s ease, opacity .15s ease;
+}
+.btn:active{transform:scale(.97);}
+.btn.secondary{background:transparent; border-color:var(--line-strong); color:var(--ink);}
+.btn.ghost{background:transparent; border-color:transparent; color:var(--prof); padding:8px 10px;}
+.btn.danger{background:var(--fatal); color:#fff;}
+.btn.small{padding:7px 13px; font-size:13px;}
+.btn.block{width:100%;}
+.btn:disabled{opacity:.5; pointer-events:none;}
+.btn svg{width:16px; height:16px;}
+
+.fab{
+  position:fixed; right:18px; bottom:calc(90px + env(safe-area-inset-bottom)); z-index:25;
+  width:54px; height:54px; border-radius:50%;
+  background:var(--prof); color:#fff; border:none;
+  box-shadow:var(--shadow-m);
+  display:flex; align-items:center; justify-content:center;
+}
+.fab svg{width:24px; height:24px;}
+
+/* ---------- form elements ---------- */
+label.field{display:block; margin-bottom:14px;}
+label.field .lbl{display:block; font-size:12.5px; font-weight:600; color:var(--ink-soft); margin-bottom:6px;}
+.input, select.input, textarea.input{
+  width:100%; padding:10px 12px; border-radius:var(--r-s);
+  border:1px solid var(--line-strong); background:#fff; color:var(--ink);
+}
+textarea.input{resize:vertical; min-height:64px;}
+.row2{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+.check-row{display:flex; align-items:center; gap:8px; margin-bottom:10px;}
+.check-row input[type=checkbox]{width:17px; height:17px; accent-color:var(--prof);}
+.check-row .lbl{font-size:13.5px; font-weight:500;}
+.hint{font-size:12px; color:var(--ink-faint); margin-top:4px;}
+
+.segmented{display:flex; border:1px solid var(--line-strong); border-radius:999px; padding:3px; background:#fff;}
+.segmented button{flex:1; border:none; background:none; padding:8px 6px; border-radius:999px; font-size:13.5px; font-weight:600; color:var(--ink-soft);}
+.segmented button.on.vida-profissional{background:var(--prof); color:#fff;}
+.segmented button.on.vida-pessoal{background:var(--pess); color:#fff;}
+
+.chip{display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:999px; font-size:11.5px; font-weight:600;}
+.chip.rotina{background:var(--rotina-soft); color:var(--rotina);}
+.chip.atencao{background:var(--atencao-soft); color:var(--atencao);}
+.chip.importante{background:var(--importante-soft); color:var(--importante);}
+.chip.urgente{background:var(--urgente-soft); color:var(--urgente);}
+.chip.fatal{background:var(--fatal-soft); color:var(--fatal);}
+.dot{width:8px; height:8px; border-radius:50%; display:inline-block; flex-shrink:0;}
+.dot.rotina{background:var(--rotina);} .dot.atencao{background:var(--atencao);}
+.dot.importante{background:var(--importante);} .dot.urgente{background:var(--urgente);}
+.dot.fatal{background:var(--fatal);}
+.dot.vida-profissional{background:var(--prof);} .dot.vida-pessoal{background:var(--pess);}
+
+.filterchip{border:1px solid var(--line-strong); background:#fff; border-radius:999px; padding:6px 13px; font-size:12.5px; font-weight:600; color:var(--ink-soft);}
+.filterchip.on.f-profissional{background:var(--prof-soft); border-color:var(--prof-line); color:var(--prof-ink);}
+.filterchip.on.f-pessoal{background:var(--pess-soft); border-color:var(--pess-line); color:var(--pess-ink);}
+.filterchip.on.f-todos{background:var(--gold-soft); border-color:var(--gold-line); color:var(--gold-ink);}
+
+/* ---------- toggle switch ---------- */
+.switch{position:relative; width:44px; height:26px; flex-shrink:0;}
+.switch input{opacity:0; width:100%; height:100%; margin:0; position:absolute; z-index:2; cursor:pointer;}
+.switch .track{position:absolute; inset:0; background:var(--line-strong); border-radius:999px; transition:.15s;}
+.switch .thumb{position:absolute; top:3px; left:3px; width:20px; height:20px; border-radius:50%; background:#fff; box-shadow:var(--shadow-s); transition:.15s;}
+.switch input:checked + .track{background:var(--prof);}
+.switch input:checked + .track + .thumb{transform:translateX(18px);}
+
+/* ---------- calendar ---------- */
+.cal-nav{display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;}
+.cal-nav .iconbtn{background:var(--bg-card); border:1px solid var(--line); border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; color:var(--ink-soft);}
+.cal-nav .iconbtn svg{width:18px; height:18px;}
+.cal-nav h2{font-size:19px; text-transform:capitalize;}
+.filters{display:flex; gap:8px; margin-bottom:14px;}
+.weekdays{display:grid; grid-template-columns:repeat(7,1fr); text-align:center; font-size:11px; color:var(--ink-faint); font-weight:600; margin-bottom:4px;}
+.monthgrid{display:grid; grid-template-columns:repeat(7,1fr); gap:4px;}
+.daycell{
+  aspect-ratio:1/1; border-radius:11px; border:1px solid transparent; background:var(--bg-card);
+  display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding:5px 2px 4px;
+  position:relative; border:1px solid var(--line);
+}
+.daycell.outmonth{opacity:.35;}
+.daycell.today{border-color:var(--prof); border-width:1.5px;}
+.daycell.selected{background:var(--prof); border-color:var(--prof);}
+.daycell.selected .daynum{color:#fff;}
+.daycell.feriado{background:var(--gold-soft);}
+.daycell.suspensao{background:repeating-linear-gradient(135deg, #fff, #fff 5px, var(--line) 5px, var(--line) 6px);}
+.daycell.selected.feriado, .daycell.selected.suspensao{background:var(--prof);}
+.daynum{font-size:13px; font-weight:600;}
+.dayindic{display:flex; gap:2px; margin-top:3px; flex-wrap:wrap; justify-content:center; min-height:6px;}
+.dayindic .dot{width:5px; height:5px;}
+.daycell.selected .dayindic .dot{background:#fff !important; opacity:.85;}
+.day-urgent-bar{position:absolute; bottom:2px; left:14%; right:14%; height:2.5px; border-radius:2px; background:var(--fatal);}
+
+.daydetail-head{display:flex; align-items:baseline; justify-content:space-between; margin:18px 0 10px;}
+.daydetail-head h3{font-size:16px; text-transform:capitalize;}
+.eventitem, .taskitem{
+  display:flex; gap:10px; align-items:flex-start; padding:11px 12px; border-radius:var(--r-s);
+  background:var(--bg-card); border:1px solid var(--line); border-left-width:4px; margin-bottom:8px;
+}
+.eventitem.vida-profissional{border-left-color:var(--prof);}
+.eventitem.vida-pessoal{border-left-color:var(--pess);}
+.eventitem .ev-main{flex:1; min-width:0;}
+.eventitem .ev-title{font-weight:600; font-size:14.5px;}
+.eventitem .ev-meta{font-size:12px; color:var(--ink-soft); margin-top:2px; display:flex; gap:8px; flex-wrap:wrap; align-items:center;}
+.eventitem .ev-actions{display:flex; gap:4px; flex-shrink:0;}
+.iconbtn-flat{background:none; border:none; color:var(--ink-faint); padding:4px; border-radius:7px;}
+.iconbtn-flat svg{width:16px; height:16px;}
+.iconbtn-flat:active{background:var(--line);}
+.empty-note{color:var(--ink-faint); font-size:13.5px; padding:14px 4px; text-align:center;}
+
+/* ---------- modal ---------- */
+.modal-backdrop{
+  position:fixed; inset:0; background:rgba(46,32,36,.42); z-index:50;
+  display:none; align-items:flex-end; justify-content:center;
+}
+.modal-backdrop.open{display:flex;}
+.modal{
+  background:var(--bg); width:100%; max-width:560px; max-height:88vh; overflow-y:auto;
+  border-radius:22px 22px 0 0; padding:18px 18px calc(24px + env(safe-area-inset-bottom));
+  box-shadow:0 -8px 30px rgba(0,0,0,.2);
+}
+.modal-handle{width:38px; height:4px; background:var(--line-strong); border-radius:99px; margin:0 auto 14px;}
+.modal-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;}
+.modal-head h3{font-size:18px;}
+.modal-close{background:var(--bg-card); border:1px solid var(--line); border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; color:var(--ink-soft);}
+.modal-close svg{width:15px; height:15px;}
+.modal-foot{display:flex; gap:10px; margin-top:6px;}
+.modal-small .modal{max-width:420px; border-radius:22px; margin:auto;}
+.modal-small.modal-backdrop{align-items:center; padding:20px;}
+.collapse-toggle{background:none; border:none; color:var(--prof); font-weight:600; font-size:13px; padding:6px 0; display:flex; align-items:center; gap:5px;}
+.collapse-body{display:none; padding-top:8px;}
+.collapse-body.open{display:block;}
+
+/* ---------- toast ---------- */
+.toast{
+  position:fixed; left:50%; bottom:calc(96px + env(safe-area-inset-bottom)); transform:translateX(-50%) translateY(10px);
+  background:var(--ink); color:#fff; padding:11px 18px; border-radius:999px; font-size:13.5px;
+  opacity:0; pointer-events:none; transition:.2s ease; z-index:60; max-width:88%; text-align:center;
+}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+/* ---------- categories view ---------- */
+.cat-header{display:flex; align-items:center; gap:8px; margin-bottom:10px;}
+.cat-header .swatch{width:10px; height:10px; border-radius:50%;}
+.cat-row{display:flex; align-items:center; gap:8px; padding:9px 0; border-bottom:1px solid var(--line);}
+.cat-row:last-child{border-bottom:none;}
+.cat-row input.input{padding:7px 9px; font-size:14px;}
+.cat-add{display:flex; gap:8px; margin-top:10px;}
+.tarja-row{display:flex; align-items:center; gap:10px; padding:8px 0;}
+
+/* ---------- holidays view ---------- */
+.hol-month{font-size:12.5px; text-transform:uppercase; letter-spacing:.5px; color:var(--ink-soft); font-weight:700; margin:16px 0 6px;}
+.hol-row{display:flex; align-items:center; gap:10px; padding:9px 4px; border-bottom:1px solid var(--line);}
+.hol-date{width:38px; text-align:center; flex-shrink:0;}
+.hol-date .n{font-size:16px; font-weight:700; display:block; line-height:1.1;}
+.hol-date .m{font-size:9.5px; color:var(--ink-faint); text-transform:uppercase;}
+.hol-name{flex:1; font-size:13.5px;}
+.hol-badge{font-size:10px; font-weight:700; padding:3px 8px; border-radius:99px; white-space:nowrap;}
+.hol-badge.nacional{background:var(--prof-soft); color:var(--prof-ink);}
+.hol-badge.estadual{background:var(--pess-soft); color:var(--pess-ink);}
+.hol-badge.forense{background:var(--gold-soft); color:var(--gold-ink);}
+.hol-badge.reduzido{background:var(--bg); color:var(--ink-soft); border:1px solid var(--line-strong);}
+.hol-badge.informativo{background:var(--bg); color:var(--ink-faint); border:1px dashed var(--line-strong);}
+.hol-badge.local{background:var(--urgente-soft); color:var(--urgente);}
+
+/* ---------- misc ---------- */
+.disclaimer{font-size:12px; color:var(--ink-faint); line-height:1.5; margin-top:10px;}
+.settings-row{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:11px 0; border-bottom:1px solid var(--line);}
+.settings-row:last-child{border-bottom:none;}
+.settings-row .txt strong{display:block; font-size:14px;}
+.settings-row .txt p{font-size:12.5px; color:var(--ink-soft); margin-top:1px;}
+.filebtn{position:relative; overflow:hidden;}
+.filebtn input[type=file]{position:absolute; inset:0; opacity:0; cursor:pointer;}
+
+@media (prefers-reduced-motion: reduce){
+  *{transition:none !important; animation:none !important;}
+}
+
+</style>
+</head>
+<body>
+<div id="app">
+<header class="topbar"><div class="topbar-inner">
+<svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#B5607E"/><rect x="14" y="19" width="36" height="31" rx="6" fill="#FBF6F5"/><path d="M14 28h36" stroke="#E7C3CD" stroke-width="2"/><path d="M23 14v9M41 14v9" stroke="#FBF6F5" stroke-width="3.2" stroke-linecap="round"/><path d="M32 31l2.3 5.7L40 39l-5.7 2.3L32 47l-2.3-5.7L24 39l5.7-2.3z" fill="#B5607E"/></svg>
+<div class="brand-text"><span class="wordmark">Agenda</span><span class="tagline">The Beauty Space</span></div><div class="topbar-date" id="topbar-date"></div></div></header>
+<div class="container" id="main"></div></div>
+<button class="fab" id="fab" aria-label="Novo" data-a="fab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+<nav class="bottomnav"><div class="bottomnav-inner" id="nav"></div></nav>
+<div class="modal-backdrop" id="mb"><div class="modal" id="md"></div></div><div class="toast" id="toast"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script>
+const $=s=>document.querySelector(s),pad=n=>String(n).padStart(2,'0'),iso=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()),par=s=>new Date(s+'T12:00'),addD=(s,n)=>{const d=par(s);d.setDate(d.getDate()+n);return iso(d)},hoje=()=>iso(new Date()),br=s=>s.split('-').reverse().join('/'),uid=()=>Math.random().toString(36).slice(2,9)+Date.now().toString(36).slice(-3);
+const DS=['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'],MS=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const dlong=s=>{const d=par(s);return DS[d.getDay()]+', '+d.getDate()+' de '+MS[d.getMonth()].toLowerCase()+' de '+d.getFullYear()},dcur=s=>DS[par(s).getDay()].split('-')[0]+', '+br(s).slice(0,5),esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])),money=v=>'R$ '+Number(v||0).toFixed(2).replace('.',',');
+const KEYS=['rotina','atencao','importante','urgente','fatal'],CATL='https://alaismartins.github.io/thebeautyspace/',FICL='https://alaismartins.github.io/app-laserday/';
+const TIPO={laser:'Laser Day',clinica:'Clínica',profissional:'Profissional',pessoal:'Pessoal'},FP=['Cartão','Cartão de crédito','Cartão de débito','Pix','Dinheiro','Troca de serviços','Divulgação'];
+const WA='<svg viewBox="0 0 24 24"><path fill="#fff" d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3zm4.7 12.4c-.2.6-1.2 1.1-1.7 1.1-.4.1-1 .1-1.6-.1-3-1.2-4.9-4.2-5.1-4.4-.1-.2-1.2-1.6-1.2-3s.8-2.1 1-2.4c.3-.3.6-.3.8-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.3.4-.4.4c-.1.1-.3.3-.1.6.2.3.7 1.2 1.6 1.9 1 .9 1.9 1.2 2.2 1.3.3.1.4.1.6-.1l.8-.9c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.1 1.4z"/></svg>';
+const LOGO='<svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="28" fill="none" stroke="#C4A87A" stroke-width=".8"/><path d="M20 22Q30 14 40 22" fill="none" stroke="#C9809A" stroke-width="1"/><text x="30" y="33" text-anchor="middle" font-family="Georgia,serif" font-size="9.5" fill="#C9809A" font-style="italic">the</text><text x="30" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="7.5" fill="#2C1F1A" letter-spacing="2.5">BEAUTY</text><text x="30" y="50" text-anchor="middle" font-family="Georgia,serif" font-size="5.5" fill="#7A625C" letter-spacing="3">SPACE</text></svg>';
+const I=p=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const IC={inicio:I('<path d="M3.5 11.5 12 4l8.5 7.5"/><path d="M6 10v9.5h12V10"/><path d="M10 19.5V14h4v5.5"/>'),agenda:I('<rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 9.7h17M8 3.3v3.2M16 3.3v3.2"/>'),tarefas:I('<path d="M5 6.5l1.6 1.6L9.5 5M5 13l1.6 1.6L9.5 11.5M5 19.5l1.6 1.6 2.9-3"/><path d="M13 7h7M13 13.5h7M13 20h7"/>'),laser:I('<path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/>'),clinica:I('<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.4A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>'),ajustes:I('<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>'),chev:I('<path d="M9 5l7 7-7 7"/>'),prev:I('<path d="M15 5l-7 7 7 7"/>'),next:I('<path d="M9 5l7 7-7 7"/>'),edit:I('<path d="M4 20h4L19 9l-4-4L4 16z"/>'),trash:I('<path d="M5 7h14M10 7V4h4v3M7 7l1 13h8l1-13"/>')};
+const DEF={events:[],tarefas:[],diasConcl:{},agend:[],laserDatas:[],fx:{},localHol:[{md:'06-13',nome:'Aniversário de Macatuba (data comemorativa)',info:1}],
+tarjas:['Tranquilo','Atenção','Importante','Urgente','Crítico'],cats:{profissional:['Reunião','Fornecedor','Financeiro','Curso/Capacitação'],pessoal:['Aniversário','Saúde','Família','Lazer','Lembrete']},
+servicos:{laser:[['Axilas',0],['Virilha',0],['Buço',0],['Meia perna',0],['Perna completa',0]],clinica:[['Limpeza de pele',0],['Design de sobrancelhas',0],['Massagem modeladora',0],['Drenagem linfática',0]]},
+config:{notificar:true,notifFeriados:true,notifAgend:true,notifLaser:true,horaVesperaPadrao:'18:00',horaDiaPadrao:'08:00',antecedencia:60,
+txtVesp:'Amanhã: {titulo} {hora}',txtDia:'Hoje: {titulo} {hora}',txtAgVesp:'Amanhã: atendimento de {nome} ({servico}) às {hora}.',txtAgDia:'Em breve: atendimento de {nome} ({servico}) às {hora}.'},
+msgs:{cli_1:'Prezadas clientes, informamos que o nosso Laser Day será realizado em {data}. As vagas são limitadas; solicite o seu horário pelo WhatsApp. Atenciosamente, equipe The Beauty Space.',
+cli_2:'Prezadas clientes, os Laser Days de {mes} acontecerão nos dias: {datas}. Entre em contato para reservar o seu horário. Atenciosamente, equipe The Beauty Space.',
+cli_3:'Prezadas clientes, já estão programados os Laser Days de {ano}: {datas}. Recomendamos o agendamento antecipado para garantir a data de sua preferência. Atenciosamente, equipe The Beauty Space.',
+eq_1:'Equipe The Beauty Space, lembramos que o Laser Day será realizado em {data}. Solicitamos a conferência da agenda, dos equipamentos e dos insumos, bem como a confirmação dos atendimentos com as clientes.',
+eq_2:'Equipe The Beauty Space, seguem as datas de Laser Day de {mes}: {datas}. Pedimos que organizem as escalas e a disponibilidade com antecedência.',
+eq_3:'Equipe The Beauty Space, seguem as datas de Laser Day programadas para {ano}: {datas}. Solicitamos o planejamento das escalas e a reserva dessas datas na agenda individual.',
+laser_antes:'Prezada {nome}, esperamos que esteja bem. Lembramos que o seu atendimento de depilação a laser na The Beauty Space está agendado para {data}, às {hora}. Para o melhor resultado, compareça com a área raspada, sem cremes e sem exposição solar recente. Caso necessite reagendar, pedimos que nos avise com antecedência. Atenciosamente, equipe The Beauty Space.',
+laser_dia:'Bom dia, {nome}. Confirmamos o seu atendimento de hoje, às {hora}, na The Beauty Space. Aguardamos a sua chegada. Atenciosamente, equipe The Beauty Space.',
+clin_antes:'Prezada {nome}, lembramos que o seu atendimento ({servico}) na The Beauty Space está agendado para {data}, às {hora}. Caso necessite reagendar, pedimos que nos avise com antecedência. Atenciosamente, equipe The Beauty Space.',
+clin_dia:'Bom dia, {nome}. Confirmamos o seu atendimento de hoje ({servico}), às {hora}, na The Beauty Space. Será um prazer recebê-la. Atenciosamente, equipe The Beauty Space.'}};
+let DATA;function carregar(){let d=null;try{d=JSON.parse(localStorage.getItem('tbs_agenda_v2'))}catch(e){}DATA=Object.assign({},JSON.parse(JSON.stringify(DEF)),d||{});['config','msgs'].forEach(k=>DATA[k]=Object.assign({},DEF[k],(d||{})[k]))}carregar();
+const salvar=()=>{try{localStorage.setItem('tbs_agenda_v2',JSON.stringify(DATA))}catch(e){}},C=()=>DATA.config;
+const gp=p=>p.split('.').reduce((o,k)=>o[k],DATA),sp=(p,v)=>{const a=p.split('.'),l=a.pop();a.reduce((o,k)=>o[k],DATA)[l]=v;salvar()};
+const tnome=k=>DATA.tarjas[KEYS.indexOf(k)]||k,chip=k=>`<span class="chip ${k}">${esc(tnome(k))}</span>`,tsel=s=>KEYS.map(k=>`<option value="${k}" ${k==s?'selected':''}>${esc(tnome(k))}</option>`).join('');
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2200)}
+function modal(t,h){$('#md').innerHTML=`<div class="modal-handle"></div><div class="modal-head"><h3>${t}</h3><button class="modal-close" data-a="close">✕</button></div>${h}`;$('#mb').classList.add('open')}
+const fechar=()=>$('#mb').classList.remove('open');
+function cp(t){(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast('Copiado ✓')).catch(()=>{const e=document.createElement('textarea');e.value=t;document.body.appendChild(e);e.select();try{document.execCommand('copy');toast('Copiado ✓')}catch(x){}e.remove()})}
+const wal=(tel,t)=>{let n=(tel||'').replace(/\D/g,'');if(n&&n.length<=11)n='55'+n;return 'https://wa.me/'+n+'?text='+encodeURIComponent(t)};
+function baixar(n,t,m){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:m||'application/json'}));a.download=n;a.click()}
+/* ===== feriados ===== */
+function pascoa(y){const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),mo=Math.floor((h+l-7*m+114)/31);return new Date(y,mo-1,(h+l-7*m+114)%31+1)}
+const HC={};function hol(y){if(HC[y])return HC[y];const h={},f=(md,n,t)=>h[y+'-'+md]={nome:n,tipo:t};
+[['01-01','Confraternização Universal','nacional'],['04-21','Tiradentes','nacional'],['05-01','Dia do Trabalho','nacional'],['09-07','Independência do Brasil','nacional'],['10-12','Nossa Sra. Aparecida','nacional'],['11-02','Finados','nacional'],['11-15','Proclamação da República','nacional'],['11-20','Consciência Negra','nacional'],['12-25','Natal','nacional'],['07-09','Revolução Constitucionalista','estadual'],['10-28','Dia do Servidor Público','facultativo'],['12-24','Véspera de Natal','facultativo'],['12-31','Véspera de Ano-Novo','facultativo']].forEach(a=>f(...a));
+const e=pascoa(y);[[-48,'Carnaval','facultativo'],[-47,'Carnaval','facultativo'],[-2,'Sexta-feira Santa','nacional'],[60,'Corpus Christi','facultativo']].forEach(([n,t,tp])=>{const d=new Date(e);d.setDate(d.getDate()+n);h[iso(d)]={nome:t,tipo:tp}});
+DATA.localHol.forEach(l=>f(l.md,l.nome,l.info?'informativo':'local'));return HC[y]=h}
+const hn=d=>hol(+d.slice(0,4))[d];
+/* ===== itens do dia ===== */
+const occ=(e,d)=>e.data==d||(e.anual&&e.data.slice(5)==d.slice(5)&&e.data<=d);
+function dia(d){const r=[];DATA.events.forEach(e=>{if(occ(e,d))r.push({k:'e',id:e.id,tipo:e.vida,hora:e.hora,titulo:e.titulo,sub:e.categoria,tarja:e.tarja})});
+DATA.agend.forEach(a=>{if(a.data==d&&a.st!='ca')r.push({k:'a',id:a.id,tipo:a.tipo,hora:a.hora,titulo:a.nome,sub:a.servico,st:a.st})});return r.sort((a,b)=>(a.hora||'').localeCompare(b.hora||''))}
+const itemH=it=>`<div class="eventitem vida-${it.tipo}" data-a="${it.k=='e'?'evForm':'apForm'}" data-id="${it.id}"><div class="ev-main"><div class="ev-title">${esc(it.titulo)}</div><div class="ev-meta"><span>${it.hora||'Dia todo'}</span>${it.sub?`<span>${esc(it.sub)}</span>`:''}<span style="color:var(--ink-faint)">${TIPO[it.tipo]}</span>${it.tarja?chip(it.tarja):''}${it.st=='re'?'<span class="chip atencao">Reagendado</span>':''}</div></div></div>`;
+function grupos(L){return ['laser','clinica','profissional','pessoal'].map(t=>{const x=L.filter(i=>i.tipo==t);return x.length?`<div class="grp"><span class="dot vida-${t}"></span>${TIPO[t]}</div>`+x.map(itemH).join(''):''}).join('')}
+/* ===== estado ===== */
+const UI={view:'inicio',mes:new Date(),sel:hoje(),f:{laser:1,clinica:1,profissional:1,pessoal:1},tdia:hoje(),lsub:'dia',ldi:null,aud:'cli',aj:'',hy:new Date().getFullYear()};UI.mes.setDate(1);
+const isLD=()=>DATA.laserDatas.includes(hoje());
+function nav(){const o=isLD()?['laser','inicio','agenda','tarefas','clinica','ajustes']:['inicio','agenda','tarefas','laser','clinica','ajustes'],N={inicio:'Início',agenda:'Agenda',tarefas:'Tarefas',laser:'Laser',clinica:'Clínica',ajustes:'Ajustes'};$('#nav').innerHTML=o.map(k=>`<button class="navbtn ${UI.view==k?'active':''}" data-a="go" data-v="${k}">${IC[k]}<span>${N[k]}</span></button>`).join('')}
+function render(){nav();$('#main').innerHTML=`<section class="view active">${VW[UI.view]()}</section>`;$('#fab').style.display=UI.view=='ajustes'?'none':'flex';const d=new Date();$('#topbar-date').textContent=DS[d.getDay()].split('-')[0]+', '+d.getDate()+' '+MS[d.getMonth()].slice(0,3).toLowerCase()}
+const secT=t=>`<div class="section-title">${t}</div>`,empty=t=>`<div class="empty-note">${t}</div>`;
+/* ===== INÍCIO ===== */
+function vInicio(){const t=hoje(),h=hn(t),hr=new Date().getHours(),up=[];for(let i=1;i<=14;i++){const d=addD(t,i);dia(d).forEach(x=>up.push([d,x]));if(hn(d)&&hn(d).tipo!='informativo')up.push([d,{k:'h',tipo:'pessoal',titulo:hn(d).nome}])}
+const pend=DATA.tarefas.filter(x=>x.data==t&&!x.feita),np='Notification'in window?Notification.permission:'na';
+return `<div class="logo-clin">${LOGO}</div><h2 style="font-size:21px;margin-bottom:2px">${hr<12?'Bom dia':hr<18?'Boa tarde':'Boa noite'}</h2><p style="color:var(--ink-soft);font-size:13.5px;margin-bottom:16px;text-transform:capitalize">${dlong(t)}</p>
+${isLD()?'<div class="banner"><div><strong>Hoje é Laser Day</strong><p>'+DATA.agend.filter(a=>a.tipo=='laser'&&a.data==t&&a.st!='ca').length+' atendimento(s) agendado(s).</p><div class="banner-actions"><button class="btn small" data-a="go" data-v="laser">Abrir Laser Day</button></div></div></div>':''}
+${h&&h.tipo!='informativo'?`<div class="banner recess"><div><strong>${esc(h.nome)}</strong><p>Hoje é ${h.tipo=='facultativo'?'ponto facultativo':'feriado'}.</p></div></div>`:''}
+${np!='granted'?'<div class="banner"><div><strong>Ative as notificações</strong><p>No iPhone: Compartilhar › Adicionar à Tela de Início, abra o app por lá e toque abaixo.</p><div class="banner-actions"><button class="btn small" data-a="pedirNotif">Permitir notificações</button></div></div></div>':''}
+${secT('Hoje')}${dia(t).length?grupos(dia(t)):empty('Nenhum compromisso para hoje.')}
+${secT('Tarefas de hoje')}<div class="card">${pend.length?pend.map(x=>`<div style="padding:4px 0;font-size:14px">• ${esc(x.texto)} ${chip(x.tarja)}</div>`).join(''):'<span style="color:var(--ink-soft);font-size:14px">Nenhuma tarefa pendente.</span>'}</div>
+${secT('Próximos compromissos')}${up.length?up.slice(0,14).map(([d,x])=>`<div class="grp" style="margin:10px 0 6px">${dcur(d)}</div>`+(x.k=='h'?`<div class="eventitem vida-pessoal"><div class="ev-main"><div class="ev-title">${esc(x.titulo)}</div><div class="ev-meta">Feriado/ponto facultativo</div></div></div>`:itemH(x))).join(''):empty('Nada nos próximos 14 dias.')}`}
+/* ===== calendário ===== */
+function grade(modo){const y=UI.mes.getFullYear(),m=UI.mes.getMonth(),f=new Date(y,m,1).getDay(),n=new Date(y,m+1,0).getDate();let h='';for(let i=0;i<f;i++)h+='<div></div>';
+for(let d=1;d<=n;d++){const s=y+'-'+pad(m+1)+'-'+pad(d),H=hn(s),ld=DATA.laserDatas.includes(s),ind=modo=='agenda'?[...new Set(dia(s).filter(x=>UI.f[x.tipo]).map(x=>x.tipo))].map(t=>`<span class="dot vida-${t}"></span>`).join(''):'';
+h+=`<button class="daycell ${H&&H.tipo!='informativo'?'feriado':''} ${ld?'laser-on':''} ${s==hoje()?'today':''} ${modo=='agenda'&&s==UI.sel?'selected':''}" data-a="${modo=='agenda'?'selDia':'togLD'}" data-d="${s}"><span class="daynum">${d}</span><span class="dayindic">${ind}</span></button>`}return h}
+const navMes=t=>`<div class="cal-nav"><button class="iconbtn" data-a="mes" data-n="-1">${IC.prev}</button><h2>${MS[UI.mes.getMonth()]} ${UI.mes.getFullYear()}</h2><button class="iconbtn" data-a="mes" data-n="1">${IC.next}</button></div>`,wk='<div class="weekdays"><span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span></div>';
+function vAgenda(){const s=UI.sel,H=hn(s),L=dia(s).filter(x=>UI.f[x.tipo]),all=Object.values(UI.f).every(Boolean);
+return navMes()+`<div class="filters"><button class="filterchip ${all?'on f-todos':''}" data-a="fTodos">Tudo</button>${Object.keys(UI.f).map(k=>`<button class="filterchip ${UI.f[k]?'on f-'+k:''}" data-a="fil" data-k="${k}">${TIPO[k]}</button>`).join('')}</div>${wk}<div class="monthgrid">${grade('agenda')}</div>
+<div class="daydetail-head"><h3>${dlong(s)}</h3></div>${DATA.laserDatas.includes(s)?'<div class="banner"><div><strong>Laser Day</strong></div></div>':''}${H?`<div class="banner recess"><div><strong>${esc(H.nome)}</strong><p>${{nacional:'Feriado nacional',estadual:'Feriado estadual (SP)',facultativo:'Ponto facultativo',local:'Feriado municipal',informativo:'Data comemorativa'}[H.tipo]}</p></div></div>`:''}
+${L.length?grupos(L):empty('Nada marcado neste dia.')}<div class="btnrow"><button class="btn small" data-a="evForm" data-d="${s}">+ Compromisso</button><button class="btn small secondary" data-a="apForm" data-t="laser" data-d="${s}">+ Laser</button><button class="btn small secondary" data-a="apForm" data-t="clinica" data-d="${s}">+ Clínica</button></div>`}
+/* ===== TAREFAS ===== */
+function vTarefas(){const d=UI.tdia,L=DATA.tarefas.filter(x=>x.data==d),ok=DATA.diasConcl[d];
+return `<div class="cal-nav"><button class="iconbtn" data-a="tdia" data-n="-1">${IC.prev}</button><div style="text-align:center"><h2 style="font-size:16px;text-transform:capitalize">${dlong(d)}</h2><button class="btn ghost small" data-a="tdia" data-n="0" style="padding:2px 8px">Ir para hoje</button></div><button class="iconbtn" data-a="tdia" data-n="1">${IC.next}</button></div>
+<div class="card" style="display:flex;gap:10px;align-items:center;padding:12px 14px"><input type="date" class="input" value="${d}" data-c="tdata" style="flex:1"><span class="chip ${ok?'rotina':'atencao'}">${ok?'Dia concluído':'Em andamento'}</span></div>
+${L.length?L.map(x=>`<div class="taskitem eventitem" style="border-left-color:var(--line-strong)"><input type="checkbox" ${x.feita?'checked':''} data-c="tfeita" data-id="${x.id}" style="width:18px;height:18px;accent-color:var(--prof);margin-top:2px"><div class="ev-main"><div class="ev-title" style="${x.feita?'text-decoration:line-through;opacity:.55':''}">${esc(x.texto)}</div><div class="ev-meta">${chip(x.tarja)}${x.adiada?`<span>adiada ${x.adiada}x</span>`:''}</div></div><div class="ev-actions"><button class="iconbtn-flat" data-a="tEdit" data-id="${x.id}">${IC.edit}</button><button class="iconbtn-flat" data-a="tDel" data-id="${x.id}">${IC.trash}</button></div></div>`).join(''):empty('Sem tarefas neste dia.')}
+<div class="card"><label class="field"><span class="lbl">Nova tarefa</span><input class="input" id="t-txt" placeholder="Descreva a tarefa..."></label><div style="display:flex;gap:8px"><select class="input" id="t-tj" style="flex:1">${tsel('rotina')}</select><button class="btn" data-a="tAdd">Adicionar</button></div></div>
+<button class="btn ${ok?'secondary':''} block" data-a="tConcl">${ok?'Reabrir o dia':'Concluir o dia'}</button><p class="hint" style="text-align:center">Ao concluir, tarefas pendentes passam para o dia seguinte.</p>`}
+/* ===== agendamentos ===== */
+const ST={ag:'',ca:'Cancelado',nc:'Não compareceu',re:'Reagendado'};
+function cardA(a){return `<div class="eventitem vida-${a.tipo}" style="opacity:${a.st=='ca'||a.st=='nc'?.65:1}"><div class="ev-main"><div class="ev-title">${a.hora||'--:--'} · ${esc(a.nome)}</div><div class="ev-meta"><span>${br(a.data)}</span><span>${esc(a.servico||'')}</span><span>${a.dur||60} min</span><span>${money(a.valor)}</span></div><div class="ev-meta" style="margin-top:6px">${a.pago?`<span class="chip rotina">Pago${a.forma?' · '+esc(a.forma):''}</span>`:'<span class="chip urgente">A receber</span>'}${a.st!='ag'?`<span class="chip atencao">${ST[a.st]}${a.st=='re'&&a.reag>1?' '+a.reag+'x':''}</span>`:''}${a.st!='re'&&a.reag?`<span class="chip atencao">Reag. ${a.reag}x</span>`:''}</div>${a.obs?`<div class="hint">${esc(a.obs)}</div>`:''}
+<div class="btnrow"><button class="btn small ${a.pago?'on':'secondary'}" data-a="apPago" data-id="${a.id}">Pago</button><button class="btn small ${a.st=='nc'?'on':'secondary'}" data-a="apSt" data-id="${a.id}" data-s="nc">Faltou</button><button class="btn small ${a.st=='ca'?'on':'secondary'}" data-a="apSt" data-id="${a.id}" data-s="ca">Cancelou</button><button class="btn small secondary" data-a="reag" data-id="${a.id}">Reagendar</button><button class="btn small wa" data-a="lemb" data-id="${a.id}">${WA}Lembretes</button><button class="btn small ghost" data-a="apForm" data-id="${a.id}">Editar</button></div></div></div>`}
+const lista=t=>{const L=DATA.agend.filter(a=>a.tipo==t).sort((a,b)=>(a.data+a.hora).localeCompare(b.data+b.hora)),h=hoje(),p=L.filter(a=>a.data>=h),q=L.filter(a=>a.data<h).reverse();return secT('Próximos')+(p.map(cardA).join('')||empty('Nenhum agendamento.'))+(q.length?secT('Anteriores')+q.map(cardA).join(''):'')};
+function vLaser(){const s=UI.lsub,seg=`<div class="segmented" style="margin-bottom:14px">${[['dia','Laser Day'],['ag','Agendamentos'],['datas','Datas']].map(([k,n])=>`<button class="${s==k?'on':''}" data-a="lsub" data-k="${k}">${n}</button>`).join('')}</div>`;
+if(s=='ag')return seg+`<div class="btnrow" style="margin:0 0 6px"><button class="btn small" data-a="apForm" data-t="laser">+ Novo agendamento</button><button class="btn small secondary" data-a="pdfFichas">Exportar fichas (PDF)</button></div>`+lista('laser');
+if(s=='datas'){const D=[...DATA.laserDatas].sort();return seg+navMes()+wk+`<div class="monthgrid">${grade('laser')}</div><p class="hint">Toque nos dias para marcar ou desmarcar os Laser Days.</p>${secT('Lembretes')}<div class="segmented" style="margin-bottom:12px"><button class="${UI.aud=='cli'?'on':''}" data-a="aud" data-k="cli">Clientes</button><button class="${UI.aud=='eq'?'on':''}" data-a="aud" data-k="eq">Equipe</button></div>`+[['1','Laser Day chegando'],['2','Datas do mês'],['3','Datas do ano']].map(([n,t])=>{const k=UI.aud+'_'+n;return `<div class="card"><h3>${t}</h3><textarea class="input" data-c="cfg" data-p="msgs.${k}" rows="4">${esc(DATA.msgs[k])}</textarea><p class="hint">Variáveis: {data} {datas} {mes} {ano}</p><div class="pre">${esc(lm(k))}</div><div class="btnrow"><button class="btn small wa" data-a="shareLM" data-k="${k}">${WA}WhatsApp</button><button class="btn small secondary" data-a="copyLM" data-k="${k}">Copiar</button></div></div>`}).join('')}
+const D=[...DATA.laserDatas].sort(),t=hoje();let h=`<div class="btnrow" style="margin:0 0 12px"><a class="btn small" href="${CATL}" target="_blank" rel="noopener">Catálogo</a><button class="btn small secondary" data-a="copy" data-t="${CATL}">Copiar link</button><a class="btn small" href="${FICL}" target="_blank" rel="noopener">Fichas</a></div>`;
+if(!D.length)return seg+h+empty('Nenhuma data de Laser Day. Marque-as na aba “Datas”.');
+if(UI.ldi==null){UI.ldi=D.findIndex(d=>d>=t);if(UI.ldi<0)UI.ldi=D.length-1}UI.ldi=Math.max(0,Math.min(UI.ldi,D.length-1));const d=D[UI.ldi],L=DATA.agend.filter(a=>a.tipo=='laser'&&a.data==d).sort((a,b)=>a.hora.localeCompare(b.hora)),v=L.filter(a=>a.st!='ca'&&a.st!='nc');
+return seg+h+`<div class="cal-nav"><button class="iconbtn" data-a="ldi" data-n="-1">${IC.prev}</button><div style="text-align:center"><h2 style="font-size:16px;text-transform:capitalize">${dlong(d)}</h2>${d==t?'<span class="chip rotina">Hoje</span>':''}</div><button class="iconbtn" data-a="ldi" data-n="1">${IC.next}</button></div><p class="hint" style="text-align:center;margin-bottom:12px">${v.length} atendimento(s) · ${money(v.reduce((s,a)=>s+(+a.valor||0),0))} previstos · ${v.filter(a=>a.pago).length} pago(s)</p>${L.map(cardA).join('')||empty('Nenhum agendamento neste dia.')}<button class="btn block" data-a="apForm" data-t="laser" data-d="${d}">+ Agendar neste dia</button>`}
+const vClinica=()=>`<div class="btnrow" style="margin:0 0 6px"><button class="btn small" data-a="apForm" data-t="clinica">+ Novo agendamento</button><button class="btn small secondary" data-a="aj" data-k="serv" data-v="ajustes">Serviços e valores</button></div>`+lista('clinica');
+function lm(k){const D=[...DATA.laserDatas].sort(),t=hoje(),nx=D.find(d=>d>=t)||D[D.length-1]||t,y=UI.mes.getFullYear(),m=pad(UI.mes.getMonth()+1),f=a=>a.map(d=>br(d).slice(0,5)+' ('+DS[par(d).getDay()].slice(0,3)+')').join(', ')||'—';
+return DATA.msgs[k].replace(/{data}/g,dlong(nx)).replace(/{mes}/g,MS[UI.mes.getMonth()]).replace(/{ano}/g,y).replace(/{datas}/g,k.endsWith('2')?f(D.filter(d=>d.startsWith(y+'-'+m))):f(D.filter(d=>d.startsWith(''+y))))}
+/* ===== AJUSTES ===== */
+const AJ=[['notif','Notificações','Permissão, horários e textos padrão'],['serv','Serviços e valores','Laser e Clínica'],['cat','Categorias e tarjas','Nomes de importância e categorias'],['msg','Mensagens de lembrete','Textos enviados às clientes'],['hol','Feriados','Nacionais, estaduais e municipais'],['bkp','Backup e exportação','Dados, PDF e fichas do Laser']];
+function vAjustes(){if(!UI.aj)return secT('Ajustes')+'<div class="card" style="padding:4px 14px">'+AJ.map(([k,t,s])=>`<button class="menu-row" data-a="aj" data-k="${k}"><span>${t}<small>${s}</small></span>${IC.chev}</button>`).join('')+'</div>';
+const b=`<button class="back" data-a="aj" data-k="">${IC.prev}Ajustes</button>`,c=C(),sw=(p,l,d)=>`<div class="settings-row"><div class="txt"><strong>${l}</strong><p>${d}</p></div><label class="switch"><input type="checkbox" data-c="cfg" data-p="config.${p}" ${c[p]?'checked':''}><span class="track"></span><span class="thumb"></span></label></div>`,ta=(p,l)=>`<label class="field"><span class="lbl">${l}</span><textarea class="input" rows="3" data-c="cfg" data-p="${p}">${esc(gp(p))}</textarea></label>`;
+if(UI.aj=='notif'){const np='Notification'in window?Notification.permission:'indisponível';return b+secT('Notificações')+`<div class="card"><div class="settings-row"><div class="txt"><strong>Permissão: ${{granted:'ativada',denied:'bloqueada',default:'não solicitada'}[np]||np}</strong><p>Autorização do sistema para enviar lembretes.</p></div><button class="btn small" data-a="pedirNotif">Ativar</button></div><div class="settings-row"><div class="txt"><strong>Enviar teste</strong></div><button class="btn small secondary" data-a="teste">Testar</button></div>
+<p class="disclaimer">O app avisa enquanto estiver aberto (em primeiro ou segundo plano) e, ao ser aberto, dispara os lembretes que venceram nas últimas 72 horas. Por ser um app web, não há envio com o aplicativo totalmente fechado. No iPhone, instale na Tela de Início (iOS 16.4 ou superior).</p></div>
+${secT('O que notificar')}<div class="card">${sw('notificar','Notificações ligadas','Chave geral.')}${sw('notifAgend','Agendamentos','Véspera e antes do atendimento.')}${sw('notifLaser','Laser Day','Aviso da véspera e do dia.')}${sw('notifFeriados','Feriados','Véspera e dia (08:00).')}</div>
+${secT('Horários padrão')}<div class="card"><label class="field"><span class="lbl">Lembrete de véspera</span><input type="time" class="input" data-c="cfg" data-p="config.horaVesperaPadrao" value="${c.horaVesperaPadrao}"></label><label class="field"><span class="lbl">Lembrete no dia (compromisso sem horário)</span><input type="time" class="input" data-c="cfg" data-p="config.horaDiaPadrao" value="${c.horaDiaPadrao}"></label><label class="field" style="margin:0"><span class="lbl">Antecedência do aviso de atendimento (minutos)</span><input type="number" class="input" data-c="cfg" data-p="config.antecedencia" value="${c.antecedencia}"></label></div>
+${secT('Textos padrão')}<div class="card">${ta('config.txtVesp','Compromisso — véspera ({titulo} {hora})')}${ta('config.txtDia','Compromisso — no dia')}${ta('config.txtAgVesp','Atendimento — véspera ({nome} {servico} {hora})')}${ta('config.txtAgDia','Atendimento — antes do horário')}</div><button class="btn block" data-a="evForm" data-n="1">Criar notificação personalizada</button><p class="hint" style="text-align:center">Cria um compromisso com aviso e mensagem própria.</p>`}
+if(UI.aj=='serv')return b+['laser','clinica'].map(t=>secT('Serviços — '+TIPO[t])+`<div class="card">${DATA.servicos[t].map((s,i)=>`<div class="svc-row"><input class="input" value="${esc(s[0])}" data-c="svc" data-t="${t}" data-i="${i}" data-f="0"><input class="input" type="number" step="0.01" value="${s[1]}" data-c="svc" data-t="${t}" data-i="${i}" data-f="1"><button class="iconbtn-flat" data-a="svDel" data-t="${t}" data-i="${i}">${IC.trash}</button>`+'</div>').join('')}<div class="svc-row"><input class="input" id="sv-n-${t}" placeholder="Novo serviço"><input class="input" id="sv-v-${t}" type="number" step="0.01" placeholder="R$"><button class="btn small" data-a="svAdd" data-t="${t}">+</button></div></div>`).join('');
+if(UI.aj=='cat')return b+secT('Tarjas de importância')+`<div class="card">${DATA.tarjas.map((n,i)=>`<div class="tarja-row"><span class="chip ${KEYS[i]}">${KEYS[i]=='rotina'?'Menor':KEYS[i]=='fatal'?'Maior':'•'}</span><input class="input" value="${esc(n)}" data-c="tarja" data-i="${i}"></div>`).join('')}</div><p class="hint">Cores seguem a ordem de urgência; você pode renomear cada nível.</p>`+['profissional','pessoal'].map(v=>secT('Categorias — '+TIPO[v])+`<div class="card"><textarea class="input" rows="5" data-c="cats" data-v="${v}">${esc(DATA.cats[v].join('\n'))}</textarea><p class="hint">Uma categoria por linha.</p></div>`).join('');
+if(UI.aj=='msg')return b+secT('Lembretes às clientes')+`<div class="card"><p class="hint" style="margin:0 0 10px">Variáveis: {nome} {servico} {data} {hora}</p>${ta('msgs.laser_antes','Laser — antes da sessão')}${ta('msgs.laser_dia','Laser — no dia')}${ta('msgs.clin_antes','Clínica — antes do atendimento')}${ta('msgs.clin_dia','Clínica — no dia')}</div><p class="hint">Os lembretes de Laser Day para clientes e equipe ficam na aba Laser › Datas.</p>`;
+if(UI.aj=='hol'){const y=UI.hy,H=Object.entries(hol(y)).sort(),ty={nacional:'Nacional',estadual:'Estadual',facultativo:'Facultativo',local:'Municipal',informativo:'Informativo'},bc={nacional:'nacional',estadual:'estadual',facultativo:'reduzido',local:'local',informativo:'informativo'};
+return b+`<div class="cal-nav"><button class="iconbtn" data-a="hy" data-n="-1">${IC.prev}</button><h2>${y}</h2><button class="iconbtn" data-a="hy" data-n="1">${IC.next}</button></div>`+H.map(([d,h])=>`<div class="hol-row"><div class="hol-date"><span class="n">${d.slice(8)}</span><span class="m">${MS[+d.slice(5,7)-1].slice(0,3)}</span></div><div class="hol-name">${esc(h.nome)}</div><span class="hol-badge ${bc[h.tipo]}">${ty[h.tipo]}</span></div>`).join('')+secT('Feriados municipais (Macatuba)')+`<div class="card">${DATA.localHol.map((l,i)=>`<div class="settings-row"><div class="txt"><strong>${l.md.split('-').reverse().join('/')} — ${esc(l.nome)}</strong><p>${l.info?'Data comemorativa (sem alerta)':'Feriado municipal'} · todo ano</p></div><button class="iconbtn-flat" data-a="hDel" data-i="${i}">${IC.trash}</button></div>`).join('')}<div class="row2" style="margin-top:10px"><input type="date" class="input" id="h-d"><input class="input" id="h-n" placeholder="Nome"></div><button class="btn secondary block" data-a="hAdd" style="margin-top:8px">+ Adicionar feriado municipal</button></div><p class="disclaimer">Nacionais e estaduais calculados automaticamente (inclui Sexta-feira Santa e pontos facultativos). Em consulta, não encontrei feriado municipal fixo em Macatuba; o aniversário da cidade (13/06) está como data comemorativa. Confirme com a prefeitura e ajuste aqui.</p>`}
+return b+secT('Backup dos dados')+`<div class="card"><div class="settings-row"><div class="txt"><strong>Exportar backup (.json)</strong><p>Toda a agenda.</p></div><button class="btn secondary small" data-a="expJson">Exportar</button></div><div class="settings-row"><div class="txt"><strong>Importar backup</strong><p>Substitui os dados atuais.</p></div><button class="btn secondary small filebtn">Importar<input type="file" accept="application/json" data-c="impJson"></button></div></div>${secT('PDF')}<div class="card"><div class="settings-row"><div class="txt"><strong>Compromissos do mês (PDF)</strong><p>Mês aberto na Agenda.</p></div><button class="btn secondary small" data-a="pdfMes">Exportar</button></div><div class="settings-row"><div class="txt"><strong>Fichas do Laser (PDF)</strong><p>Para o site de fichas.</p></div><button class="btn secondary small" data-a="pdfFichas">Exportar</button></div></div>${secT('Zona de risco')}<div class="card"><button class="btn danger block" data-a="reset">Apagar todos os dados</button></div><p class="disclaimer">Os dados ficam apenas neste aparelho. Exporte backups com regularidade.</p>`}
+const VW={inicio:vInicio,agenda:vAgenda,tarefas:vTarefas,laser:vLaser,clinica:vClinica,ajustes:vAjustes};
+/* ===== formulários ===== */
+const fld=(l,i,v,ty,x)=>`<label class="field"><span class="lbl">${l}</span><input class="input" id="${i}" type="${ty||'text'}" value="${esc(v)}" ${x||''}></label>`,chk=(i,l,v)=>`<label class="check-row"><input type="checkbox" id="${i}" ${v?'checked':''}><span class="lbl">${l}</span></label>`,gv=i=>$('#'+i).value,gc=i=>$('#'+i).checked;
+const catO=(v,s)=>DATA.cats[v].map(c=>`<option ${c==s?'selected':''}>${esc(c)}</option>`).join('');
+function evForm(id,d,n){const e=DATA.events.find(x=>x.id==id)||{data:d||UI.sel,hora:'',titulo:'',vida:n?'pessoal':'profissional',categoria:n?'Lembrete':'',tarja:'rotina',anual:0,msgVespera:'',msgDia:'',horaVespera:'',horaDia:''};
+modal(id?'Editar compromisso':n?'Nova notificação':'Novo compromisso',fld('Título','e-t',e.titulo)+`<div class="row2">${fld('Data','e-d',e.data,'date')}${fld('Horário','e-h',e.hora,'time')}</div><label class="field"><span class="lbl">Vida</span><select class="input" id="e-v" data-c="evVida"><option value="profissional" ${e.vida=='profissional'?'selected':''}>Profissional</option><option value="pessoal" ${e.vida=='pessoal'?'selected':''}>Pessoal</option></select></label><div class="row2"><label class="field"><span class="lbl">Categoria</span><select class="input" id="e-c">${catO(e.vida,e.categoria)}</select></label><label class="field"><span class="lbl">Importância</span><select class="input" id="e-j">${tsel(e.tarja)}</select></label></div>${chk('e-a','Repetir todo ano (aniversários)',e.anual)}${chk('e-nv','Avisar na véspera',e.notifVespera!==false)}${chk('e-nd','Avisar no dia',e.notifDia!==false)}<div class="row2">${fld('Hora do aviso (véspera)','e-hv',e.horaVespera,'time')}${fld('Hora do aviso (dia)','e-hd',e.horaDia,'time')}</div>${fld('Mensagem na véspera (vazio = padrão)','e-mv',e.msgVespera)}${fld('Mensagem no dia (vazio = padrão)','e-md',e.msgDia)}<div class="modal-foot"><button class="btn block" data-a="evSave" data-id="${id||''}">Salvar</button>${id?`<button class="btn danger" data-a="evDel" data-id="${id}">Excluir</button>`:''}</div>`)}
+function apForm(id,t,d){const a=DATA.agend.find(x=>x.id==id)||{tipo:t,nome:'',tel:'',data:d||UI.sel,hora:'',dur:60,servico:'',valor:0,pago:0,forma:'',obs:'',nasc:'',foto:'',areas:'',med:'',alerg:'',gest:'Não'};t=a.tipo;const op=(L,v)=>L.map(o=>`<option ${o==v?'selected':''}>${o}</option>`).join('');
+modal((id?'Editar':'Novo')+' agendamento · '+TIPO[t],fld('Nome da cliente','a-n',a.nome)+fld('WhatsApp (DDD + número)','a-tel',a.tel,'tel')+`<div class="row2">${fld('Data','a-d',a.data,'date')}${fld('Horário','a-h',a.hora,'time')}</div>${fld('Duração (min)','a-du',a.dur,'number')}<label class="field"><span class="lbl">Procedimento (escolha ou digite)</span><input class="input" id="a-s" list="dls" value="${esc(a.servico)}" data-c="svSel" data-t="${t}"><datalist id="dls">${DATA.servicos[t].map(s=>`<option value="${esc(s[0])}">`).join('')}</datalist></label>${fld('Valor (R$)','a-v',a.valor,'number','step="0.01"')}${chk('a-p','Já pagou',a.pago)}<label class="field"><span class="lbl">Forma de pagamento</span><select class="input" id="a-f"><option value="">—</option>${op(FP,a.forma)}</select></label><label class="field"><span class="lbl">Observações</span><textarea class="input" id="a-o">${esc(a.obs)}</textarea></label>`
++(t=='laser'?`<div class="card"><h3>Dados para as fichas do Laser</h3><p class="hint" style="margin:0 0 10px">Estas informações são para as fichas do laser. Sem elas não será possível exportar os dados e importá-los no app do Laser.</p>${fld('Nascimento','a-nas',a.nasc,'date')}<label class="field"><span class="lbl">Fototipo</span><select class="input" id="a-ft"><option value="">—</option>${op(['I','II','III','IV','V','VI'],a.foto)}</select></label>${fld('Áreas a tratar','a-ar',a.areas)}${fld('Medicamentos em uso','a-med',a.med)}${fld('Alergias','a-al',a.alerg)}<label class="field" style="margin:0"><span class="lbl">Gestante?</span><select class="input" id="a-g">${op(['Não','Sim'],a.gest)}</select></label></div>`:'')+`<div class="modal-foot"><button class="btn block" data-a="apSave" data-id="${id||''}" data-t="${t}">Salvar</button>${id?`<button class="btn danger" data-a="apDel" data-id="${id}">Excluir</button>`:''}</div>`)}
+function lemb(id,tt){const a=DATA.agend.find(x=>x.id==id),k=a.tipo=='laser'?'laser':'clin',f=s=>s.replace(/{nome}/g,a.nome.split(' ')[0]).replace(/{servico}/g,a.servico||'atendimento').replace(/{data}/g,dlong(a.data)).replace(/{hora}/g,a.hora||'');
+modal((tt||'Lembretes')+' · '+esc(a.nome),[['antes','Antes da sessão'],['dia','No dia da sessão']].map(([s,n],i)=>`<div class="card"><h3>${n}</h3><textarea class="input" id="lm${i}" rows="5">${esc(f(DATA.msgs[k+'_'+s]))}</textarea><div class="btnrow"><button class="btn small wa" data-a="waSend" data-id="${id}" data-n="${i}">${WA}WhatsApp</button><button class="btn small secondary" data-a="copyId" data-n="${i}">Copiar</button></div></div>`).join(''))}
+/* ===== ações ===== */
+const apf=id=>DATA.agend.find(x=>x.id==id);
+const A={close:fechar,go:b=>{UI.view=b.v;UI.aj=b.k||'';render();scrollTo(0,0)},aj:b=>{if(b.v)UI.view=b.v;UI.aj=b.k;render();scrollTo(0,0)},fab:()=>UI.view=='laser'&&UI.lsub!='ag'&&UI.lsub!='datas'?apForm('','laser',DATA.laserDatas.slice().sort()[UI.ldi||0]):UI.view=='laser'?apForm('','laser'):UI.view=='clinica'?apForm('','clinica'):evForm('',UI.view=='agenda'?UI.sel:hoje()),
+mes:b=>{UI.mes=new Date(UI.mes.getFullYear(),UI.mes.getMonth()+ +b.n,1);render()},selDia:b=>{UI.sel=b.d;render()},togLD:b=>{const i=DATA.laserDatas.indexOf(b.d);i<0?DATA.laserDatas.push(b.d):DATA.laserDatas.splice(i,1);DATA.laserDatas.sort();UI.ldi=null;salvar();render()},
+fil:b=>{UI.f[b.k]=UI.f[b.k]?0:1;render()},fTodos:()=>{Object.keys(UI.f).forEach(k=>UI.f[k]=1);render()},lsub:b=>{UI.lsub=b.k;render()},aud:b=>{UI.aud=b.k;render()},ldi:b=>{UI.ldi+= +b.n;render()},hy:b=>{UI.hy+= +b.n;render()},
+tdia:b=>{UI.tdia=+b.n?addD(UI.tdia,+b.n):hoje();render()},tAdd:()=>{const t=gv('t-txt').trim();if(!t)return;DATA.tarefas.push({id:uid(),data:UI.tdia,texto:t,tarja:gv('t-tj'),feita:0});salvar();render()},
+tEdit:b=>{const x=DATA.tarefas.find(y=>y.id==b.id),n=prompt('Editar tarefa',x.texto);if(n&&n.trim()){x.texto=n.trim();salvar();render()}},tDel:b=>{DATA.tarefas=DATA.tarefas.filter(x=>x.id!=b.id);salvar();render()},
+tConcl:()=>{const d=UI.tdia;if(DATA.diasConcl[d])delete DATA.diasConcl[d];else{DATA.tarefas.filter(x=>x.data==d&&!x.feita).forEach(x=>{x.data=addD(d,1);x.adiada=(x.adiada||0)+1});DATA.diasConcl[d]=1}salvar();render()},
+evForm:b=>evForm(b.id,b.d,b.n),apForm:b=>apForm(b.id,b.t,b.d),
+evSave:b=>{const t=gv('e-t').trim(),d=gv('e-d');if(!t||!d){alert('Informe título e data.');return}const o={titulo:t,data:d,hora:gv('e-h'),vida:gv('e-v'),categoria:gv('e-c'),tarja:gv('e-j'),anual:gc('e-a'),notifVespera:gc('e-nv'),notifDia:gc('e-nd'),horaVespera:gv('e-hv'),horaDia:gv('e-hd'),msgVespera:gv('e-mv'),msgDia:gv('e-md')},e=DATA.events.find(x=>x.id==b.id);if(e)Object.assign(e,o);else DATA.events.push(Object.assign({id:uid()},o));UI.sel=d;salvar();fechar();render();verificar()},
+evDel:b=>{if(confirm('Excluir este compromisso?')){DATA.events=DATA.events.filter(x=>x.id!=b.id);salvar();fechar();render()}},
+apSave:b=>{const g=gv;if(!g('a-n').trim()||!g('a-d')){alert('Informe nome e data.');return}const o={tipo:b.t,nome:g('a-n').trim(),tel:g('a-tel'),data:g('a-d'),hora:g('a-h'),dur:+g('a-du')||60,servico:g('a-s'),valor:parseFloat(g('a-v'))||0,pago:gc('a-p'),forma:g('a-f'),obs:g('a-o')};if(b.t=='laser')Object.assign(o,{nasc:g('a-nas'),foto:g('a-ft'),areas:g('a-ar'),med:g('a-med'),alerg:g('a-al'),gest:g('a-g')});let a=apf(b.id);if(a)Object.assign(a,o);else{a=Object.assign({id:uid(),st:'ag',reag:0},o);DATA.agend.push(a)}salvar();fechar();render();verificar();if(a.tel)lemb(a.id,'Salvo ✓ — Lembretes')},
+apDel:b=>{if(confirm('Excluir agendamento?')){DATA.agend=DATA.agend.filter(x=>x.id!=b.id);salvar();fechar();render()}},
+apPago:b=>{const a=apf(b.id);a.pago=a.pago?0:1;salvar();if(a.pago&&!a.forma)apForm(a.id);else render()},apSt:b=>{const a=apf(b.id);a.st=a.st==b.s?'ag':b.s;salvar();render()},
+reag:b=>{const a=apf(b.id);modal('Reagendar · '+esc(a.nome),`<div class="row2">${fld('Nova data','r-d',a.data,'date')}${fld('Horário','r-h',a.hora,'time')}</div><p class="hint">Reagendamentos até agora: ${a.reag||0}</p><div class="modal-foot"><button class="btn block" data-a="reagOk" data-id="${a.id}">Reagendar</button></div>`)},
+reagOk:b=>{const a=apf(b.id);a.data=gv('r-d')||a.data;a.hora=gv('r-h');a.reag=(a.reag||0)+1;a.st='re';salvar();fechar();render();verificar()},
+lemb:b=>lemb(b.id),waSend:b=>window.open(wal(apf(b.id).tel,gv('lm'+b.n))),copyId:b=>cp(gv('lm'+b.n)),copy:b=>cp(b.t),shareLM:b=>window.open('https://wa.me/?text='+encodeURIComponent(lm(b.k))),copyLM:b=>cp(lm(b.k)),
+svAdd:b=>{const n=gv('sv-n-'+b.t).trim();if(!n)return;DATA.servicos[b.t].push([n,parseFloat(gv('sv-v-'+b.t))||0]);salvar();render()},svDel:b=>{DATA.servicos[b.t].splice(+b.i,1);salvar();render()},
+hAdd:()=>{const d=gv('h-d'),n=gv('h-n').trim();if(!d||!n)return;DATA.localHol.push({md:d.slice(5),nome:n});for(const k in HC)delete HC[k];salvar();render()},hDel:b=>{DATA.localHol.splice(+b.i,1);for(const k in HC)delete HC[k];salvar();render()},
+pedirNotif:()=>{if(!('Notification'in window)){alert('No iPhone: toque em Compartilhar › Adicionar à Tela de Início, abra o app por lá (iOS 16.4+) e tente novamente.');return}Notification.requestPermission().then(()=>{render();verificar()})},
+teste:()=>{if(!('Notification'in window)||Notification.permission!='granted'){A.pedirNotif();return}disparar('Agenda The Beauty Space','Notificação de teste.')},
+expJson:()=>baixar('agenda-tbs-backup.json',JSON.stringify(DATA)),reset:()=>{if(confirm('Apagar TODOS os dados?')){localStorage.removeItem('tbs_agenda_v2');carregar();render()}},
+pdfMes:()=>{const y=UI.mes.getFullYear(),m=UI.mes.getMonth(),n=new Date(y,m+1,0).getDate(),B=[];for(let d=1;d<=n;d++){const s=y+'-'+pad(m+1)+'-'+pad(d),L=dia(s),H=hn(s);if(L.length||H)B.push({h:dcur(s)+(H?' — '+H.nome:''),l:L.map(x=>(x.hora||'Dia todo')+' · '+x.titulo+' ['+TIPO[x.tipo]+']'+(x.sub?' · '+x.sub:''))})}mkPdf('Agenda The Beauty Space — '+MS[m]+' '+y,B,'agenda-'+MS[m]+'-'+y+'.pdf')},
+pdfFichas:()=>{const L=DATA.agend.filter(a=>a.tipo=='laser'&&a.st!='ca'),m=L.filter(a=>!a.nome||!a.tel||!a.nasc||!a.areas);if(!L.length){alert('Não há agendamentos de laser.');return}if(m.length){alert('Faltam dados das fichas (WhatsApp, nascimento e áreas) em: '+m.map(a=>a.nome).join(', ')+'.\nSem essas informações não é possível exportar e importar no app do Laser.');return}
+mkPdf('Fichas — Laser · The Beauty Space',L.map(a=>({h:'FICHA: '+a.nome,l:['Nome: '+a.nome,'WhatsApp: '+a.tel,'Nascimento: '+br(a.nasc),'Fototipo: '+(a.foto||'-'),'Áreas: '+a.areas,'Medicamentos: '+(a.med||'-'),'Alergias: '+(a.alerg||'-'),'Gestante: '+(a.gest||'Não'),'Procedimento: '+(a.servico||'-'),'Valor: '+money(a.valor),'Data/hora: '+br(a.data)+' '+(a.hora||''),'Pagamento: '+(a.pago?'Pago'+(a.forma?' ('+a.forma+')':''):'A receber'),'Observações: '+(a.obs||'-')]})),'fichas-laser.pdf',1)}};
+function mkPdf(t,B,nome,pp){if(!window.jspdf){toast('Gerador de PDF indisponível (verifique a conexão).');return}const d=new window.jspdf.jsPDF({unit:'pt',format:'a4'}),W=d.internal.pageSize.getWidth()-100;let y=60;d.setFontSize(15);d.text(t,50,y);y+=28;
+B.forEach((b,i)=>{if(pp&&i>0){d.addPage();y=60}if(y>770){d.addPage();y=60}d.setFontSize(12);d.setFont(undefined,'bold');d.text(b.h,50,y);y+=18;d.setFont(undefined,'normal');d.setFontSize(10.5);b.l.forEach(x=>d.splitTextToSize(x,W).forEach(s=>{if(y>800){d.addPage();y=60}d.text(s,50,y);y+=15}));y+=12});d.save(nome)}
+const CH={cfg:t=>{sp(t.dataset.p,t.type=='checkbox'?t.checked:t.type=='number'?+t.value:t.value);if(t.dataset.p.startsWith('msgs.'))render()},tdata:t=>{UI.tdia=t.value||hoje();render()},tfeita:t=>{const x=DATA.tarefas.find(y=>y.id==t.dataset.id);x.feita=t.checked?1:0;salvar();render()},
+evVida:t=>{$('#e-c').innerHTML=catO(t.value,'')},svSel:t=>{const m=DATA.servicos[t.dataset.t].find(s=>s[0]==t.value);if(m)$('#a-v').value=m[1]},svc:t=>{const s=DATA.servicos[t.dataset.t][+t.dataset.i];s[+t.dataset.f]=t.dataset.f=='1'?parseFloat(t.value)||0:t.value;salvar()},
+tarja:t=>{DATA.tarjas[+t.dataset.i]=t.value.trim()||DATA.tarjas[+t.dataset.i];salvar()},cats:t=>{DATA.cats[t.dataset.v]=t.value.split('\n').map(s=>s.trim()).filter(Boolean);salvar()},
+impJson:t=>{const f=t.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);localStorage.setItem('tbs_agenda_v2',JSON.stringify(d));carregar();render();toast('Backup importado ✓')}catch(e){alert('Arquivo inválido')}};r.readAsText(f)}};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b&&A[b.dataset.a]){e.preventDefault();A[b.dataset.a](b.dataset)}});
+document.addEventListener('change',e=>{const t=e.target;if(t.dataset&&t.dataset.c&&CH[t.dataset.c])CH[t.dataset.c](t)});
+$('#mb').addEventListener('click',e=>{if(e.target.id=='mb')fechar()});
+/* ===== notificações (mesmo modelo do Pauta) ===== */
+let ICONE;function disparar(t,c){if(!('Notification'in window)||Notification.permission!='granted')return;const o={body:c,icon:ICONE,badge:ICONE,tag:'tbs-'+uid()};if(navigator.serviceWorker&&navigator.serviceWorker.controller)navigator.serviceWorker.ready.then(r=>r.showNotification(t,o)).catch(()=>{try{new Notification(t,o)}catch(e){}});else{try{new Notification(t,o)}catch(e){}}}
+const fm=(t,e)=>t.replace(/{titulo}/g,e.titulo).replace(/{hora}/g,e.hora?'às '+e.hora:''),fa=(t,a)=>t.replace(/{nome}/g,a.nome).replace(/{servico}/g,a.servico||'atendimento').replace(/{hora}/g,a.hora||'');
+function verificar(){if(!C().notificar||!('Notification'in window)||Notification.permission!='granted')return;const ag=new Date(),lim=ag.getTime()-72*36e5;let m=0;
+const T=(k,d,hh,ti,co,off)=>{if(DATA.fx[k])return;const[h,mi]=(hh||'08:00').split(':').map(Number),al=par(d);al.setHours(h,mi-(off||0),0,0);if(ag>=al&&al.getTime()>=lim){disparar(ti,co);DATA.fx[k]=Date.now();m=1}};
+for(let i=-3;i<=1;i++){const d=addD(hoje(),i);
+DATA.events.filter(e=>occ(e,d)).forEach(e=>{if(e.notifVespera!==false)T(e.id+d+'v',addD(d,-1),e.horaVespera||C().horaVesperaPadrao,'Agenda TBS · amanhã',fm(e.msgVespera||C().txtVesp,e));if(e.notifDia!==false)T(e.id+d+'d',d,e.horaDia||e.hora||C().horaDiaPadrao,'Agenda TBS · hoje',fm(e.msgDia||C().txtDia,e))});
+if(C().notifAgend)DATA.agend.filter(a=>a.data==d&&a.st!='ca'&&a.st!='nc').forEach(a=>{T(a.id+d+'v',addD(d,-1),C().horaVesperaPadrao,'Agenda TBS · amanhã',fa(C().txtAgVesp,a));T(a.id+d+'d',d,a.hora||C().horaDiaPadrao,'Agenda TBS · atendimento',fa(C().txtAgDia,a),a.hora?C().antecedencia:0)});
+if(C().notifLaser&&DATA.laserDatas.includes(d)){const n=DATA.agend.filter(a=>a.tipo=='laser'&&a.data==d&&a.st!='ca').length;T('ld'+d+'v',addD(d,-1),C().horaVesperaPadrao,'Laser Day amanhã','Laser Day em '+br(d)+' · '+n+' atendimento(s) agendado(s).');T('ld'+d+'d',d,C().horaDiaPadrao,'Hoje é Laser Day',n+' atendimento(s) agendado(s) para hoje.')}
+const h=hn(d);if(C().notifFeriados&&h&&['nacional','estadual','local'].includes(h.tipo)){T('h'+d+'v',addD(d,-1),'08:00','Feriado amanhã',h.nome);T('h'+d+'d',d,'08:00','Feriado hoje',h.nome)}}
+if(m){for(const k in DATA.fx)if(Date.now()-DATA.fx[k]>60*864e5)delete DATA.fx[k];salvar()}}
+setInterval(verificar,60000);document.addEventListener('visibilitychange',()=>{if(document.visibilityState=='visible'){verificar();render()}});
+/* ===== ícone, manifest e service worker ===== */
+(function(){const s='<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#B5607E"/><rect x="14" y="19" width="36" height="31" rx="6" fill="#FBF6F5"/><path d="M14 28h36" stroke="#E7C3CD" stroke-width="2"/><path d="M23 14v9M41 14v9" stroke="#FBF6F5" stroke-width="3.2" stroke-linecap="round"/><path d="M32 31l2.3 5.7L40 39l-5.7 2.3L32 47l-2.3-5.7L24 39l5.7-2.3z" fill="#B5607E"/></svg>';
+$('#fav').href='data:image/svg+xml,'+encodeURIComponent(s);const im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=c.height=512;c.getContext('2d').drawImage(im,0,0,512,512);ICONE=c.toDataURL('image/png');$('#ati').href=ICONE;try{$('#mf').href=URL.createObjectURL(new Blob([JSON.stringify({name:'Agenda The Beauty Space',short_name:'Agenda TBS',start_url:location.href.split('#')[0],display:'standalone',background_color:'#FBF6F5',theme_color:'#B5607E',icons:[{src:ICONE,sizes:'512x512',type:'image/png'}]})],{type:'application/manifest+json'}))}catch(e){}};im.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(s)})();
+if('serviceWorker'in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+try{navigator.storage&&navigator.storage.persist()}catch(e){}
+render();verificar();
+</script></body></html>
